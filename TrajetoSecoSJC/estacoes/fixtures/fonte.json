@@ -1,0 +1,11 @@
+[
+  {
+    "pk": 1,
+    "model": "estacoes.fonte",
+    "fields": {
+      "site": "www.cemaden.gov.br",
+      "nome": "CEMADEN",
+      "url": "http://150.163.255.240/CEMADEN/resources/parceiros/{0}/1"
+    }
+  }
+]

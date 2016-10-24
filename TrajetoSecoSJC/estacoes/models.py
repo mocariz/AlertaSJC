@@ -25,19 +25,6 @@ TIPO_ESTACAO = (
     ('lnm', u'Linimétrica'),      # Nivel
 )
 
-TIPODADOS = (
-    ('B', 'Byte: sem Sinal'),
-    ('b', 'Byte: com Sinal'),
-    ('>H', 'Word: sem sinal ( 2 bytes)'),
-    ('<H', 'Word: sem sinal ( 2 bytes) Big-endian'),
-    ('>h', 'Word: com sinal ( 2 bytes)'),
-    ('bbb', '12bits (3 bytes)'),
-    ('>I', 'Inteiro: sem sinal ( 4 bytes)'),
-    ('<I', 'Inteiro: sem sinal ( 4 bytes) Big-endian'),
-    ('>i', 'Inteiro: com sinal ( 4 bytes)'),
-    ('>f', 'Float ( 4 bytes)')
-)
-
 TIPO_SENSOR = (
     ('niv', u'Nível'),
     ('vrnce', u'Variance'),

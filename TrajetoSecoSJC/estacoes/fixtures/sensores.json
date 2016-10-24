@@ -1,0 +1,15 @@
+[{
+  "pk": 1,
+  "model": "estacoes.sensor",
+  "fields": {
+    "tipo": "vrnce",
+    "nome": "Variance"
+  }
+}, {
+  "pk": 2,
+  "model": "estacoes.sensor",
+  "fields": {
+    "tipo": "niv",
+    "nome": "Nivel"
+  }
+}]
