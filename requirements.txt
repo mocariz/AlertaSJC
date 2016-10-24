@@ -1,0 +1,10 @@
+Django==1.10
+psycopg2==2.6.2
+beautifulsoup4
+requests
+
+# Test project
+pep8
+pylint
+mock
+coverage

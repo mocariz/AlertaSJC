@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for tg project.
 
@@ -11,9 +13,19 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from os import path, makedirs
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+ADMINS = (
+    ('Monica Mota', 'mota.ocariz@gmail.com'),
+)
+
+# nome de usuário do usuário que representa o sistema
+SYSTEM_USER = 'sistema'
+MANAGERS = ADMINS
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +39,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'TrajetoSecoSJC.estacoes',
+    'TrajetoSecoSJC.dados'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tg.urls'
+ROOT_URLCONF = 'TrajetoSecoSJC.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tg.wsgi.application'
+#WSGI_APPLICATION = 'tg.wsgi.application'
 
 
 # Database
@@ -77,6 +90,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'bancotg2',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
     }
 }
 
