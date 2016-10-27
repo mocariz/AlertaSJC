@@ -2,6 +2,8 @@ Django==1.10
 psycopg2==2.6.2
 beautifulsoup4
 requests
+pytz
+django-bootstrap==3-7.1.0
 
 # Test project
 pep8

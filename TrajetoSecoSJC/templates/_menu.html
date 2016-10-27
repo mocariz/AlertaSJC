@@ -1,0 +1,45 @@
+{% load static %}
+<nav class="navbar navbar-default" id="topnav">
+    <div class="navbar-header">
+        {% if request.user.is_authenticated %}
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="navbar-brand" href="">
+            <img src="{% static 'img/alertablu.png' %}" width="150" />
+        </a>
+        {% endif %}
+    </div>
+
+
+    {% if request.user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="top-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="" class="dropdown-menu-toggle" data-toggle="dropdown">Dados <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                      <a href="">Pluviométricos</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="">
+                    {% if request.user.first_name or request.user.last_name %}
+                        {{ request.user.first_name }} {{ request.user.last_name }}
+                    {%  else %}
+                        {{ request.user.username }}
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+</nav>

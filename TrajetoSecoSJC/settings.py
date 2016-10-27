@@ -13,11 +13,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from os import path, makedirs
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.realpath(os.path.dirname(__file__))
 
+BASE_URL = '/'
 
 ADMINS = (
     ('Monica Mota', 'mota.ocariz@gmail.com'),
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'bootstrap3',
     'TrajetoSecoSJC.estacoes',
     'TrajetoSecoSJC.dados',
     'TrajetoSecoSJC.geo'
@@ -69,7 +71,7 @@ ROOT_URLCONF = 'TrajetoSecoSJC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(PROJECT_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,9 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt_BR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -137,8 +139,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+DECIMAL_SEPARATOR = ','
+
+LANGUAGES = [
+    ('pt-br', u'Português'),
+]
+
+DATETIME_FORMAT_SHOW = '%d/%m/%Y %H:%M'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'), )

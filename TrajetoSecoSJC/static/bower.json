@@ -1,0 +1,21 @@
+{
+  "name": "TrajetoSecoSJC",
+  "version": "0.1.0",
+  "authors": [
+    "Monica Mota <mota.ocariz@gmail.com>"
+  ],
+  "main": "main.js",
+  "private": true,
+  "ignore": [
+    "components"
+  ],
+  "dependencies": {
+    "jquery": "2.2.0",
+    "moment": "2.11.2",
+    "d3": "v3.4.13",
+    "c3": "0.4.10",
+    "bootstrap": "3.3.7",
+    "jquery.tablesorter": "2.25.4",
+    "eonasdan-bootstrap-datetimepicker": "4.17.37"
+  }
+}

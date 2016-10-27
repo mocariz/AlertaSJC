@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:"pt_BR" }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_title }}{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="http://www.squitter.com.br/favicon.ico" />
+    {# Style #}
+    <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block style %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+    {% block blockrobots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+<body {%block body %}{% endblock %}>
+    <div class="container-fluid">
+        {% include "_menu.html" %}
+
+        <div id="content" {% if sidebar %}class="col-md-9"{% endif %}>
+            <div class="page-header">
+                {% block page_header %}
+                	<h1>
+    					{% block page_title %}{% endblock %}
+    					<button class="btn btn-xs btn-link" type="button" data-toggle="modal" data-target="#modal">
+    						<i class='glyphicon glyphicon-question-sign'></i>
+    					</button>
+    				</h1>
+    				{% block page_header_button %}{% endblock %}
+                {% endblock %}
+            </div>
+            {% block main %}{% endblock %}
+        </div>
+        {% if sidebar %}
+            <div id="sidebar" class="col-md-3">
+                {% block sidebar %}{% endblock %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% include "_footer.html" %}
+
+    {# load javascript #}
+    <script type="text/javascript" src="{% static 'components/jquery/dist/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/moment/min/moment-with-locales.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'components/moment/locale/pt-br.js' %}"></script>
+    {% block javascript %}{% endblock %}
+</body>
+</html>
