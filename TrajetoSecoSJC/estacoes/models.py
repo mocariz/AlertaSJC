@@ -77,7 +77,6 @@ class Estacao(models.Model):
             estacao=self,
             horaLeitura=horaLeitura,
             defaults=dict(
-                fonte=self.fonte,
                 horaRecebida=now,
                 horaEnviada=now
             ))
@@ -144,37 +143,35 @@ class Fonte(models.Model):
         now = timezone.now()
         utc_tz = timezone.utc
         resultado = {}
-        for estado in self.estados():
-            # cria o caminho
-            path = self.url.format(estado)
-            response = requests.get(path, timeout=240, headers={
-                'User-Agent': USER_AGENT})
 
-            if response.status_code == 200:
-                data = json.loads(response.text)
-                for d in data['cemaden']:
+        # url com os dados de chuva das estações para SJC
+        path = self.url.format('SP')
+        # faz o acesso a pagina via requests
+        response = requests.get(path, timeout=240, headers={
+            'User-Agent': USER_AGENT})
+
+        if response.status_code == 200:
+            data = json.loads(response.text)
+            for d in data['cemaden']:
+                try:
+                    estacao = Estacao.objects.get(
+                        codigo=d['codestacao'],
+                        fonte=self)
+                    if estacao not in resultado:
+                        resultado[estacao] = {}
+
                     try:
-                        estacao = Estacao.objects.get(
-                            codigo=d['codestacao'],
-                            fonte=self,
-                            ativa=True,
-                            source='cmden'
-                        )
-                        if estacao not in resultado:
-                            resultado[estacao] = {}
+                        d['dataHora'] = d['dataHora'].split('.', 1)[0]
+                        horaLeitura = datetime.strptime(
+                            d['dataHora'], '%Y-%m-%d %H:%M:%S')
+                        horaLeitura = horaLeitura.replace(tzinfo=utc_tz) \
+                                                 .astimezone(utc_tz)
 
-                        try:
-                            d['dataHora'] = d['dataHora'].split('.', 1)[0]
-                            horaLeitura = datetime.strptime(
-                                d['dataHora'], '%Y-%m-%d %H:%M:%S')
-                            horaLeitura = horaLeitura.replace(tzinfo=utc_tz) \
-                                                     .astimezone(utc_tz)
-
-                            resultado[estacao][horaLeitura] = float(d['chuva'])
-                        except TypeError as e:
-                            logger.debug(str(e))
-                    except Estacao.DoesNotExist:
-                        pass
+                        resultado[estacao][horaLeitura] = float(d['chuva'])
+                    except TypeError as e:
+                        logger.debug(str(e))
+                except Estacao.DoesNotExist:
+                    pass
 
         for estacao, dados in resultado.iteritems():
             for horaLeitura, valor in dados.iteritems():

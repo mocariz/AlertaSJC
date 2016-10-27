@@ -81,7 +81,6 @@ class LeituraChuva(models.Model):
             return LeituraSensor.objects \
                 .filter(leitura__estacao=self.leitura.estacao,
                         sensor=variance,
-                        valido=True,
                         leitura__horaLeitura__gt=inicio,
                         leitura__horaLeitura__lte=fim).aggregate(
                             sum=Sum('valor'))['sum']

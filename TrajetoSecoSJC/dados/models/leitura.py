@@ -30,6 +30,7 @@ class Leitura(models.Model):
 
     def atualiza_or_create_leituraChuva(self):
         from TrajetoSecoSJC.dados.models.leituraChuva import LeituraChuva
+        from TrajetoSecoSJC.estacoes.models import Sensor
 
         try:
             try:
@@ -88,8 +89,7 @@ class Leitura(models.Model):
             query = LeituraSensor.objects \
                 .filter(leitura__estacao=self.estacao,
                         sensor__tipo='cont',
-                        leitura__horaLeitura__lte=self.horaLeitura,
-                        valido=True) \
+                        leitura__horaLeitura__lte=self.horaLeitura) \
                 .order_by("-leitura__horaLeitura")[:2]
             ultimo = query[0]
             penultimo = query[1]
@@ -120,6 +120,8 @@ class Leitura(models.Model):
         :rtype: LeituraSensor
         '''
         from TrajetoSecoSJC.estacoes.models import EstacaoSensor
+        from TrajetoSecoSJC.dados.models.leituraSensor import LeituraSensor
+
         try:
             try:
                 ls = LeituraSensor.objects.get(
@@ -130,7 +132,7 @@ class Leitura(models.Model):
                     leitura=self, sensor=sensor)
                 logger.debug("%s - Criado" % ls)
 
-            ls.valor = ls.calculo(valor)
+            ls.valor = valor
             ls.save()
             return ls
         except EstacaoSensor.DoesNotExist:
