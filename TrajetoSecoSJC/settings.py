@@ -48,8 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'TrajetoSecoSJC.estacoes',
-    'TrajetoSecoSJC.dados'
+    'TrajetoSecoSJC.dados',
+    'TrajetoSecoSJC.geo'
 ]
 
 MIDDLEWARE = [

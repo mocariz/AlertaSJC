@@ -1,3 +1,10 @@
-from django.contrib import admin
+# -*- coding: utf-8 -*-
+'''
+@author: monica
+'''
 
-# Register your models here.
+from django.contrib.gis import admin
+from TrajetoSecoSJC.geo.models import Logradouro, Cota
+
+admin.site.register(Logradouro)
+admin.site.register(Cota)
