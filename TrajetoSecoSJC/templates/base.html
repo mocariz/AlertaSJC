@@ -4,48 +4,63 @@
 <html lang="{{ LANGUAGE_CODE|default:"pt_BR" }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{ site_title }}{% block title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="http://www.squitter.com.br/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Projeto para o trabalho de graduacao da faculdade. Prototipo para apresentacao das ruas alagadas durante um evento chuvoso em sao jose dos campos.">
+    <meta name="author" content="Monica Mota Ocariz">
+    <title>{% block title %}{% endblock %}</title>
+
     {# Style #}
     <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <style type="text/css">
+      /*!
+      * IE10 viewport hack for Surface/desktop Windows 8 bug
+      * Copyright 2014-2015 Twitter, Inc.
+      * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+      */
+
+      /*
+      * See the Getting Started docs for more information:
+      * http://getbootstrap.com/getting-started/#support-ie10-width
+      */
+      @-ms-viewport     { width: device-width; }
+      @-o-viewport      { width: device-width; }
+      @viewport         { width: device-width; }
+    </style>
+
     {% block style %}{% endblock %}
     {% block extrahead %}{% endblock %}
     {% block blockrobots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
 <body {%block body %}{% endblock %}>
-    <div class="container-fluid">
-        {% include "_menu.html" %}
 
-        <div id="content" {% if sidebar %}class="col-md-9"{% endif %}>
-            <div class="page-header">
-                {% block page_header %}
-                	<h1>
-    					{% block page_title %}{% endblock %}
-    					<button class="btn btn-xs btn-link" type="button" data-toggle="modal" data-target="#modal">
-    						<i class='glyphicon glyphicon-question-sign'></i>
-    					</button>
-    				</h1>
-    				{% block page_header_button %}{% endblock %}
-                {% endblock %}
-            </div>
-            {% block main %}{% endblock %}
-        </div>
-        {% if sidebar %}
-            <div id="sidebar" class="col-md-3">
-                {% block sidebar %}{% endblock %}
-            </div>
-        {% endif %}
+  {% include "_menu.html" %}
+
+  {% block inicio %}{% endblock %}
+
+  <div class="container-fluid">
+    <div id="content">
+      {% block page_header %}
+        <div class="page-header">
+            <h1>{% block page_title %}{% endblock %}</h1>
+  		  </div>
+      {% endblock %}
+
+      {% block main %}{% endblock %}
     </div>
+  </div>
 
-    {% include "_footer.html" %}
+  {% include "_footer.html" %}
 
-    {# load javascript #}
-    <script type="text/javascript" src="{% static 'components/jquery/dist/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'components/moment/min/moment-with-locales.min.js' %}" ></script>
-    <script type="text/javascript" src="{% static 'components/moment/locale/pt-br.js' %}"></script>
-    {% block javascript %}{% endblock %}
+  {# load javascript #}
+  <script type="text/javascript" src="{% static 'components/jquery/dist/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'components/moment/min/moment-with-locales.min.js' %}" ></script>
+  <script type="text/javascript" src="{% static 'components/moment/locale/pt-br.js' %}"></script>
+  {% block javascript %}{% endblock %}
 </body>
 </html>
