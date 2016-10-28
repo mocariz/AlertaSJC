@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block extrahead %}
+    <link href="{% static 'components/c3/c3.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'squitter_dados/css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'%}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'components/jquery.tablesorter/dist/css/theme.bootstrap.min.css' %}">
+{% endblock %}
+
+{% block page_title %}Histórico dos Dados Pluviométricos da Estação: {{ estacao }}{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" action="{{ request.path }}" class="form form-inline pull-right search-form">
+            {% csrf_token %}
+            {% bootstrap_form form layout="inline" %}
+            <button class="btn btn-info" type="submit">
+                <span class="glyphicon glyphicon-search"></span> Filtrar
+            </button>
+        </form>
+    </div>
+</div>
+<hr>
+
+<div id="chart" style="height: 420px; display: none;"></div>
+
+
+<table class="table table-condensed table-bordered table-sorter" chart-table="#chart" style="margin-top:50px;">
+    <thead>
+        <tr>
+          <th class="text-center">Hora Leitura</th>
+          <th class="text-center">15 min</th>
+          <th class="text-center">30 min</th>
+          <th class="text-center">1 h</th>
+          <th class="text-center">2 h</th>
+          <th class="text-center">3 h</th>
+          <th class="text-center">6 h</th>
+          <th class="text-center">12 h</th>
+          <th class="text-center">24 h</th>
+          <th class="text-center">48 h</th>
+          <th class="text-center">96 h</th>
+          <th class="text-center">No Mês</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for leitura in lista %}
+            <tr class="{{ leitura.css_chuva }} text-center">
+                <td>{{ leitura.leitura.horaLeitura|date:'d/m/Y H:i' }}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.m15|safe }}">{{ leitura.m15|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.m30|safe }}">{{ leitura.m30|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h01|safe }}">{{ leitura.h01|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h02|safe }}">{{ leitura.h02|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h03|safe }}">{{ leitura.h03|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h06|safe }}">{{ leitura.h06|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h12|safe }}">{{ leitura.h12|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h24|safe }}">{{ leitura.h24|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h48|safe }}">{{ leitura.h48|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.h96|safe }}">{{ leitura.h96|floatformat:1|default:'-'}}</td>
+                <td class="{{ css_chuva }} text-center" data-value="{{ leitura.mes|safe }}">{{ leitura.mes|floatformat:1|default:'-'}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'components/c3/c3.min.js' %}"></script>
+    <script src="{% static 'components/d3/d3.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/tablechart.js' %}"></script>
+    <script src="{% static 'components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'components/jquery.tablesorter/dist/js/jquery.tablesorter.js' %}"></script>
+    <script src="{% static 'js/tablesorter.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datetimepicker();
+        });
+    </script>
+{% endblock %}

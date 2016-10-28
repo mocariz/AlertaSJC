@@ -26,4 +26,7 @@ urlpatterns = [
 
     url(r'^accounts/', include(registration)),
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^dados/', include('TrajetoSecoSJC.dados.urls')),
+
 ]
