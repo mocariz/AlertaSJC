@@ -28,5 +28,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^dados/', include('TrajetoSecoSJC.dados.urls')),
+    url(r'^geo/', include('TrajetoSecoSJC.geo.urls')),
+
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
 
 ]

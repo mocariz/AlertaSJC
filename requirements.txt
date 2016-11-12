@@ -5,6 +5,15 @@ requests
 pytz
 django-bootstrap
 
+# django-rest
+djangorestframework
+markdown
+django-filter
+djangorestframework-gis
+
+
+
+
 # Test project
 pep8
 pylint

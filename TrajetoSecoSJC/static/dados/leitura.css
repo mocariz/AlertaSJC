@@ -1,0 +1,43 @@
+#legenda-chuva {
+  padding: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#legenda-chuva span {
+  margin-left: 10px;
+}
+
+.ch-fraca {
+  background-color: rgba(0, 255, 0, 0.68);
+}
+
+#legenda-chuva .ch-fraca {
+  color: rgba(0, 255, 0, 0.68);
+}
+
+.ch-moderada {
+  background-color: #FFD700;
+}
+
+#legenda-chuva .ch-moderada {
+  color: #FFD700;
+}
+
+.ch-forte {
+  background-color: #FFA500;
+}
+
+#legenda-chuva .ch-forte {
+  color: #FFA500;
+}
+
+.ch-muito-forte {
+  background-color: red;
+  color: white;
+}
+
+#legenda-chuva .ch-muito-forte {
+  color: red;
+}

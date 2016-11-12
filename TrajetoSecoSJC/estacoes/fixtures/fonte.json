@@ -7,5 +7,13 @@
       "nome": "CEMADEN",
       "url": "http://150.163.255.240/CEMADEN/resources/parceiros/{0}/1"
     }
+  }, {
+    "pk": 2,
+    "model": "estacoes.fonte",
+    "fields": {
+      "site": "",
+      "nome": "Ficticia",
+      "url": ""
+    }
   }
 ]

@@ -137,13 +137,13 @@ class LeituraChuva(models.Model):
     @property
     def css_chuva(self):
         css = ''
-        if self.h01 >= 0.2 and self.h01 <= 5.0:
+        if self.h24 < 10.0 and self.h24 > 0.4:
             css = "ch-fraca"
-        elif self.h01 >= 5.1 and self.h01 <= 25.0:
+        elif self.h24 >= 10.0 and self.h24 < 30.0:
             css = "ch-moderada"
-        elif self.h01 >= 25.1 and self.h01 <= 50.0:
+        elif self.h24 >= 30.0 and self.h24 < 70.0:
             css = "ch-forte"
-        elif self.h01 > 50.0:
+        elif self.h24 > 70.0:
             css = "ch-muito-forte"
         return css
 

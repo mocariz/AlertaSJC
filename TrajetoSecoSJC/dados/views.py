@@ -6,7 +6,9 @@ from django.shortcuts import render, get_object_or_404
 
 from TrajetoSecoSJC.estacoes.models import Estacao
 from TrajetoSecoSJC.dados.forms import PeriodoForm
+from TrajetoSecoSJC.dados.models.leitura import Leitura
 from TrajetoSecoSJC.dados.models.leituraChuva import LeituraChuva
+from TrajetoSecoSJC.dados.models.leituraSensor import LeituraSensor
 
 
 class Leituras(View):
@@ -71,4 +73,34 @@ class Historico(View):
             'form': form,
             'estacao': estacao.nome,
             'pk': estacao.pk,
+        })
+
+
+
+class NivelView(View):
+    template = 'dados/nivel.html'
+
+    def leituras(self, estacao, inicio, fim):
+        return Leitura.objects.filter(
+            estacao=estacao,
+            horaLeitura__range=(inicio, fim)
+        ).order_by('-horaLeitura')
+
+    def get(self, request):
+        estacao = Estacao.objects.get(pk=11)
+
+        try:
+            leitura = Leitura.objects.filter(
+                estacao=estacao).latest("horaLeitura")
+
+            fim = leitura.horaLeitura
+            inicio = fim - timedelta(hours=24)
+
+            leituras = self.leituras(estacao, inicio, fim)
+        except Leitura.DoesNotExist:
+            leituras = []
+
+        return render(request, self.template, {
+            'lista': leituras,
+            'estacao': estacao.nome
         })

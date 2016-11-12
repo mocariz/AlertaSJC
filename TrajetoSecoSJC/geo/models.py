@@ -4,24 +4,39 @@
 '''
 from django.contrib.gis.db import models
 
+TIPO = (
+    ('mt', 'motorway'),
+    ('tk', 'trunk'),
+    ('pm', 'primary'),
+    ('sc', 'secondary'),
+    ('tt', 'tertiary'),
+    ('rd', 'residential'),
+    ('sv', 'service'),
+    ('ft', 'footway'),
+    ('tr', 'track'),
+    ('pd', 'pedestrian'),
+    ('ph', 'path'),
+    ('mtl', 'motorway_link'),
+    ('pml', 'primary_link'),
+    ('ttl', 'tertiary_link'),
+    ('tkl', 'trunk_link'),
+    ('scl', 'secondary_link'),
+    ('ls', 'living_street'),
+    ('cy', 'cycleway'),
+    ('sp', 'steps'),
+    ('ri', 'rail'),
+    ('pi', 'pier'),
+    ('un', 'unclassified'),
+)
+
 
 class Logradouro(models.Model):
     """
         Classe de persistência das estações
     """
 
-    TIPO = (
-        ('mt', 'motorway'),
-        ('tk', 'trunk'),
-        ('pm', 'primary'),
-        ('sc', 'secondary'),
-        ('tt', 'tertiary'),
-        ('rd', 'residential'),
-        ('sv', 'service'),
-        ('un', 'unclassified'),
-    )
     # Informação
-    nome = models.CharField(max_length=50, db_index=True)
+    nome = models.CharField(max_length=150, db_index=True)
     codigo = models.IntegerField(db_index=True)
 
     # Características
@@ -30,7 +45,7 @@ class Logradouro(models.Model):
     sentido = models.CharField(max_length=2, null=True)
 
     # Localização
-    geom = models.PolygonField(spatial_index=True)  # WGS84
+    geom = models.LineStringField(spatial_index=True)  # WGS84
     referencia = models.CharField(max_length=50, db_index=True)
 
     objects = models.GeoManager()
@@ -38,11 +53,15 @@ class Logradouro(models.Model):
     def __unicode__(self):
         return u"{0}".format(self.nome)
 
+    def get_center(self):
+        center = self.geom.centroid
+        return center.coords
+
     class Meta:
         ordering = ['nome']
         verbose_name = u"Logradouro"
         verbose_name_plural = u"Logradouros"
-        unique_together = ("nome", "maounica",)
+        unique_together = ("codigo", "nome",)
 
 class Cota(models.Model):
     """
@@ -62,3 +81,24 @@ class Cota(models.Model):
         return u'{0}, {1} - Cota: {2}'.format(self.logradouro,
                                               self.logradouro.nome,
                                               self.cheia)
+
+
+class CurvaNivel(models.Model):
+    """
+    Cota de cheia das ruas.
+    """
+
+    altitude = models.DecimalField(
+        max_digits=10, decimal_places=2, db_index=True)
+
+    # Localização
+    geom = models.LineStringField(spatial_index=True)  # WGS84
+    objects = models.GeoManager()
+
+    class Meta:
+        ordering = ['altitude']
+        verbose_name = u'Curva de Nível'
+        verbose_name_plural = u'Curva de Nível'
+
+    def __unicode__(self):
+        return u'{0}'.format(self.altitude)

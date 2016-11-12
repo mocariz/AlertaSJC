@@ -199,5 +199,25 @@
             "estacao": 10,
             "sensor": 1
           }
+    }, {
+        "pk": 11,
+        "model": "estacoes.estacao",
+        "fields": {
+            "nome": "Rio Buquirinha",
+            "codigo": "1",
+            "descricao": "Estação do Ficticia",
+            "tipo": "nvl",
+            "fonte": 2,
+            "endereco": "",
+            "numero": 0,
+            "geom": "SRID=4326;POINT (-45.899 -23.117)"
+          }
+    }, {
+        "pk": 11,
+        "model": "estacoes.estacaosensor",
+        "fields": {
+            "estacao": 11,
+            "sensor": 2
+          }
     }
 ]

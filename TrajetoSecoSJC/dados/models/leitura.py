@@ -138,6 +138,24 @@ class Leitura(models.Model):
         except EstacaoSensor.DoesNotExist:
             pass
 
+    @property
+    def css_nivel(self):
+        '''
+            Define o css do nivel de alerta para o nivel do rio
+        '''
+        css = ''
+        leitura = self.leiturasensor_set.filter(sensor__nome='Nivel')[0]
+
+        if leitura.valor > 1.0 and leitura.valor < 4.0:
+            css = "ch-fraca"
+        elif leitura.valor >= 4.0 and leitura.valor < 6.0:
+            css = "ch-moderada"
+        elif leitura.valor >= 6.0 and leitura.valor < 8.0:
+            css = "ch-forte"
+        elif leitura.valor > 8.0:
+            css = "ch-muito-forte"
+        return css
+
     class Meta:
         ordering = ['-horaLeitura']
         get_latest_by = 'horaLeitura'

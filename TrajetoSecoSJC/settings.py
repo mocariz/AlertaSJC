@@ -53,7 +53,9 @@ INSTALLED_APPS = [
     'bootstrap3',
     'TrajetoSecoSJC.estacoes',
     'TrajetoSecoSJC.dados',
-    'TrajetoSecoSJC.geo'
+    'TrajetoSecoSJC.geo',
+    'rest_framework',
+    'rest_framework_gis'
 ]
 
 MIDDLEWARE = [
@@ -152,3 +154,13 @@ DATETIME_FORMAT_SHOW = '%d/%m/%Y %H:%M'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'), )
+
+###############################
+# Django REST framework       #
+###############################
+
+REST_FRAMEWORK = {
+   'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}

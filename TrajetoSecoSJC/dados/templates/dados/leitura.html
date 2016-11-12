@@ -1,10 +1,25 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block page_title %}
   Dados Pluviométricos das Estações do CEMADEN
 {% endblock %}
 
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'dados/leitura.css' %}">
+{% endblock %}
+
 {% block main %}
+
+<div class="col-md-12 text-center" id="legenda-chuva">
+  <p>
+    Legenda: mm/24h
+  </p>
+  <span class="ch-fraca glyphicon glyphicon-stop"></span> Fraca  (< 10)
+  <span class="ch-moderada glyphicon glyphicon-stop"></span> Moderada (>= 10 < 30)
+  <span class="ch-forte glyphicon glyphicon-stop"></span> Forte (>= 30 < 70)
+  <span class="ch-muito-forte glyphicon glyphicon-stop"></span> Muito-Forte (>= 70)
+</div>
 
 <table id="tabela-dados" class="table table-condensed table-bordered table-sorter table-padding">
     <thead>
@@ -31,7 +46,7 @@
     </thead>
     <tbody>
         {% for lc in dados %}
-        	{% with estacao=lc.leitura.estacao css_chuva=lc.css_chuva delay=lc.is_delay %}
+        	{% with estacao=lc.leitura.estacao css_chuva=lc.css_chuva %}
             <tr id ="linha-{{estacao.pk}}">
                 <td id="estacao-{{estacao.pk}}" class="{{ css_chuva }} text-center">{{ estacao.codigo}}</td>
                 <td id="nome-{{ estacao.pk }}" class="{{ css_chuva }}">{{estacao.nome}}</td>
