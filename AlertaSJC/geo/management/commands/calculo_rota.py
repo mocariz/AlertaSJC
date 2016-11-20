@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from TrajetoSecoSJC.geo.models import Logradouro, Cota
+from AlertaSJC.geo.models import Logradouro, Cota
 import requests
 import json
 
 
 class Command(BaseCommand):
     '''
-    Comando para criar as cotas com base na elevação obtida pela api do google:
-    Google Elevation API
-
-    o ponto de referencia usado para o nivel do rio são as coordenadas:
-    -23.153995, -45.897464, que representa a o rio paraiba do sul
+    Ponto de referencia usado para o nivel do rio são as coordenadas:
+    -23.153995, -45.897464, que representa o rio paraiba do sul
     '''
 
     def handle(self, *args, **options):
