@@ -100,7 +100,13 @@ class NivelView(View):
         except Leitura.DoesNotExist:
             leituras = []
 
+        nivel = LeituraSensor.objects.filter(
+            sensor__pk=2,
+            leitura__estacao__id=11
+        ).latest().valor
+
         return render(request, self.template, {
             'lista': leituras,
-            'estacao': estacao.nome
+            'estacao': estacao.nome,
+            'nivel': nivel
         })

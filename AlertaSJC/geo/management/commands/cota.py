@@ -8,8 +8,8 @@ import json
 
 class Command(BaseCommand):
     '''
-    Ponto de referencia usado para o nivel do rio são as coordenadas:
-    -23.153995, -45.897464, que representa o rio paraiba do sul
+    Comando para criar as cotas com base na elevação obtida pela api do google:
+    Google Elevation API
     '''
 
     def handle(self, *args, **options):
@@ -21,8 +21,6 @@ class Command(BaseCommand):
         USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) ' \
                      'AppleWebKit/537.36 (KHTML, like Gecko) ' \
                      'Chrome/28.0.1500.71 Safari/537.36'
-
-        rio = 554.562
 
         for logradouro in Logradouro.objects.all():
             coords = logradouro.get_center()
