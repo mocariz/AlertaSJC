@@ -29,6 +29,6 @@ var map = new ol.Map({
   ],
   view: new ol.View({
     center: ol.proj.fromLonLat([-45.897464, -23.153995]),
-    zoom: 12
+    zoom: 15
   })
 });

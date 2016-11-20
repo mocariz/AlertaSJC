@@ -13,3 +13,14 @@ class CurvaNivelSerializer(GeoFeatureModelSerializer):
         model = CurvaNivel
         geo_field = 'geom'
         fields = ('altitude',)
+
+
+class CotaSerializer(GeoFeatureModelSerializer):
+    '''
+    Serializer da Classe CurvaNivel
+    '''
+
+    class Meta:
+        model = CurvaNivel
+        geo_field = 'geom'
+        fields = ('altitude',)

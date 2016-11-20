@@ -3,7 +3,7 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from TrajetoSecoSJC.geo.rest import CurvaNivelRestView
-from TrajetoSecoSJC.geo.views import CurvaNivelView
+from TrajetoSecoSJC.geo.views import MapaView
 
 router = routers.DefaultRouter()
 router.register(r'curvas', CurvaNivelRestView, base_name='curvas')
@@ -15,5 +15,5 @@ urlpatterns = [
     # API do rest com geojson
     url(r'^rest/', include(router.urls, namespace='rest')),
 
-    url(r'^$', CurvaNivelView.as_view(), name='curva'),
+    url(r'^$', MapaView.as_view(), name='mapa'),
 ]
