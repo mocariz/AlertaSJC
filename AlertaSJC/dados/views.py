@@ -110,3 +110,10 @@ class NivelView(View):
             'estacao': estacao.nome,
             'nivel': nivel
         })
+
+
+class MapaView(View):
+    template = 'dados/mapa.html'
+
+    def get(self, request):
+        return render(request, self.template)

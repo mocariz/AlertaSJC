@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+  Estações Pluviométricas
+{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'dados/leitura.css' %}">
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
+    <script type="text/javascript">
+        window.estacoes_URL = '{% url 'estacoes:rest:estacoes-list' %}';
+    </script>
+{% endblock %}
+
+{% block main %}
+<div class="col-md-12 text-center" id="legenda-chuva">
+  <p>
+    Legenda: mm/24h
+  </p>
+  <span class="ch-fraca glyphicon glyphicon-stop"></span> Fraca  (> 0.4 < 10)
+  <span class="ch-moderada glyphicon glyphicon-stop"></span> Moderada (>= 10 < 30)
+  <span class="ch-forte glyphicon glyphicon-stop"></span> Forte (>= 30 < 70)
+  <span class="ch-muito-forte glyphicon glyphicon-stop"></span> Muito-Forte (>= 70)
+</div>
+
+  <div class="content fill">
+	   <div id="map" style="height:500px"></div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://openlayers.org/en/v3.19.1/build/ol.js" type="text/javascript"></script>
+    <script src="{% static 'estacoes/mapa.js' %}"></script>
+{% endblock %}

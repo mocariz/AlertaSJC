@@ -90,7 +90,7 @@
             "fonte": 1,
             "endereco": "",
             "numero": 0,
-            "geom": "SRID=4326;POINT (-45.159 -23.916)"
+            "geom": "SRID=4326;POINT (-45.966 -23.159)"
           }
     }, {
         "pk": 5,

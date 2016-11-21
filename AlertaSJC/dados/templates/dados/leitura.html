@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_title %}
-  Dados Pluviométricos das Estações do CEMADEN
+{% block page_header %}
+  <div class="page-header">
+    <h1>Dados Pluviométricos das Estações do CEMADEN</h1>
+    <a style="margin-top:-35px;" href="{% url 'dados:mapa-estacoes'%}" class="btn btn-primary pull-right">Mapa da Estações</a>
+  </div>
 {% endblock %}
 
 {% block extrahead %}
