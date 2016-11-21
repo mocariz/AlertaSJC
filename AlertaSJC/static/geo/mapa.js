@@ -1,12 +1,10 @@
-var curvas = new ol.layer.Vector({
-  title: 'curvas de nivel',
+var cotas = new ol.layer.Vector({
+  title: 'cotas',
   source: new ol.source.Vector({
-    url: window.curvas_URL,
+    url: window.cotas_URL,
     format: new ol.format.GeoJSON()
   })
 });
-
-
 
 var rio = new ol.Feature({
   geometry: new ol.geom.Point([-45.897464, -23.153995]),
@@ -25,7 +23,7 @@ var map = new ol.Map({
   layers: [
     new ol.layer.Tile({
       source: new ol.source.OSM()
-    }), curvas, vectorLayer
+    }), cotas, vectorLayer
   ],
   view: new ol.View({
     center: ol.proj.fromLonLat([-45.897464, -23.153995]),
