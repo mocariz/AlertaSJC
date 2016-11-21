@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
                 cota = Cota.objects.create(
                     logradouro=logradouro,
-                    cheia=data['elevation']
+                    altitude=data['elevation']
                 )
                 cota.save()
                 print 'Criada nova cota para' + logradouro.nome
