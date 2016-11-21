@@ -1,2 +1,7 @@
-# Trajeto-Seco-SJC
-Desenvolvimento de um Protótipo para identificar ruas possivelmente alagadas em São José dos Campos durante um evento chuvoso
+# AlertaSJC
+
+Protótipo de um Sistema Web de monitoramento de eventos chuvosos com a finalidade de identificar possíveis pontos de alagamento na cidade de São José dos Campos.
+
+Projeto desenvolvido em Django.
+
+Página: 
