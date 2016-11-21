@@ -29,6 +29,7 @@ urlpatterns = [
 
     url(r'^dados/', include('AlertaSJC.dados.urls')),
     url(r'^geo/', include('AlertaSJC.geo.urls')),
+    url(r'^estacoes/', include('AlertaSJC.estacoes.urls')),
 
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
