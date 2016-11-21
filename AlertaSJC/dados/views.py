@@ -103,7 +103,7 @@ class NivelView(View):
         nivel = LeituraSensor.objects.filter(
             sensor__pk=2,
             leitura__estacao__id=11
-        ).latest().valor
+        ).latest()
 
         return render(request, self.template, {
             'lista': leituras,

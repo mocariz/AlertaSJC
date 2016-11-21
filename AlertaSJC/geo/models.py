@@ -3,6 +3,7 @@
 @author: Monica Mota
 '''
 from django.contrib.gis.db import models
+from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
 TIPO = (
     ('mt', 'motorway'),
@@ -81,3 +82,24 @@ class Cota(models.Model):
         return u'{0}, {1} - Cota: {2}'.format(self.logradouro,
                                               self.logradouro.nome,
                                               self.cheia)
+
+
+    def css_cota(self):
+        css = ''
+        leitura = LeituraSensor.objects.filter(
+            sensor__pk=2,
+            leitura__estacao__id=11
+        ).latest()
+        diferenca = float(self.cheia) - leitura.valor
+
+
+        if diferenca > 3.0:
+            css = "vigilancia"
+        elif diferenca >= 2.0 :
+            css = "atencao"
+        elif diferenca >= 1:
+            css = "alerta"
+        elif leitura.valor > self.cheia:
+            css = "prontidao"
+
+        return css
