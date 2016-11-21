@@ -56,14 +56,6 @@ class Estacao(models.Model):
     def __unicode__(self):
         return u"{0} - {1}".format(self.nome, self.fonte)
 
-    @property
-    def chuva(self):
-        try:
-            leitura = self.leitura_set.latest()
-            return leitura.leiturachuva.json_leiturachuva()
-        except Leitura.DoesNotExist:
-            return None
-
     def estacaoSensor(self):
         return EstacaoSensor.objects.filter(
             estacao=self,
@@ -175,6 +167,7 @@ class Fonte(models.Model):
 
         for estacao, dados in resultado.iteritems():
             for horaLeitura, valor in dados.iteritems():
+
                 if horaLeitura.minute in (0, 30):
                     m10 = timedelta(minutes=10)
                     valor += resultado[estacao].get(horaLeitura - m10, 0)

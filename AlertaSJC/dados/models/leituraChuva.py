@@ -146,26 +146,3 @@ class LeituraChuva(models.Model):
         elif self.h24 > 70.0:
             css = "ch-muito-forte"
         return css
-
-    def json_leiturachuva(self):
-        return {
-            "estacao_id": self.leitura.estacao.id,
-            "nome": self.leitura.estacao.nome,
-            "horaLeitura": self.leitura.horaLeitura,
-            "m15": self.m15,
-            "m30": self.m30,
-            "h01": self.h01,
-            "h02": self.h02,
-            "h03": self.h03,
-            "h04": self.h04,
-            "h06": self.h06,
-            "h12": self.h12,
-            "h24": self.h24,
-            "h36": self.h36,
-            "h48": self.h48,
-            "h72": self.h72,
-            "h96": self.h96,
-            "h168": self.h168,
-            "mes": self.mes,
-            "classe": self.css_chuva,
-        }
