@@ -16,12 +16,16 @@ class Command(BaseCommand):
 
 
         for cota in Cota.objects.all():
-            diferenca = float(cota.cheia) - rio
-            print diferenca, cota.cheia
+            diferenca = float(cota.altitude) - rio
+            cheia = 0
 
             if diferenca < 0:
                 # 8 metros é o valor maximo de atenção para o nivel do rio
-                cota.cheia = 8.1
+                cheia = 8.1
+            elif diferenca < 5:
+                cheia = diferenca + 5
             else:
-                cota.cheia = diferenca
+                cheia = diferenca
+
+            cota.cota = cheia
             cota.save()

@@ -70,18 +70,20 @@ class Cota(models.Model):
     """
 
     logradouro = models.ForeignKey(Logradouro, db_index=True)
-    cheia = models.DecimalField(max_digits=5, decimal_places=2, db_index=True)
+    altitude = models.DecimalField(max_digits=5, decimal_places=2, db_index=True)
     observacao = models.CharField(max_length=254, null=True)
+    cota = models.DecimalField(max_digits=5, decimal_places=2, db_index=True,
+                               null=True)
 
     class Meta:
-        ordering = ['cheia']
+        ordering = ['cota']
         verbose_name = u'Cota'
         verbose_name_plural = u'Cotas'
 
     def __unicode__(self):
         return u'{0}, {1} - Cota: {2}'.format(self.logradouro,
                                               self.logradouro.nome,
-                                              self.cheia)
+                                              self.cota)
 
 
     def css_cota(self):
@@ -90,16 +92,18 @@ class Cota(models.Model):
             sensor__pk=2,
             leitura__estacao__id=11
         ).latest()
-        diferenca = float(self.cheia) - leitura.valor
+        diferenca = float(self.cota) - leitura.valor
 
 
-        if diferenca > 3.0:
+        if diferenca > 3.0 and diferenca < 5.0:
             css = "vigilancia"
-        elif diferenca >= 2.0 :
+        elif diferenca >= 2.0 and diferenca < 3.0:
             css = "atencao"
-        elif diferenca >= 1:
+        elif diferenca >= 1 and diferenca < 2.0:
             css = "alerta"
-        elif leitura.valor > self.cheia:
+        elif leitura.valor > self.cota:
             css = "prontidao"
+
+        print css, diferenca
 
         return css
