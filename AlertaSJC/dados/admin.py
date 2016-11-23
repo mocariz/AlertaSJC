@@ -28,7 +28,7 @@ class LeituraSensorAdmin(admin.ModelAdmin):
 
 
 class LeituraChuvaAdmin(admin.ModelAdmin):
-    list_display = ('horaLeitura', 'm15', 'h01', 'h24', 'mes', )
+    list_display = ('horaLeitura', 'h01', 'h24', 'mes', )
     list_filter = ('leitura__estacao', )
 
 admin.site.register(Leitura, LeituraAdmin)

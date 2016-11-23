@@ -7,10 +7,6 @@ from django.db import models
 
 
 class LeituraSensor(models.Model):
-    """
-    Ponte do ManyToMany entre as leituras e os sensores.
-    """
-
     leitura = models.ForeignKey('dados.Leitura')
     sensor = models.ForeignKey('estacoes.Sensor')
     valor = models.FloatField()

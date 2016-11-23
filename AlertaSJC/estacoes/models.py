@@ -3,22 +3,15 @@
 @author: Monica Mota
 '''
 
+
 import json
-import logging
 import requests
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from django.contrib.gis.db import models
 from django.utils import timezone
-
+from django.conf import settings
 from AlertaSJC.dados.models.leitura import Leitura
-from AlertaSJC.dados.models.leituraChuva import LeituraChuva
-from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
-logger = logging.getLogger(__name__)
-USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) ' \
-             'AppleWebKit/537.36 (KHTML, like Gecko) ' \
-             'Chrome/28.0.1500.71 Safari/537.36'
 
 TIPO_ESTACAO = (
     ('plv', u'Pluviométrica'),    # Chuva
@@ -39,7 +32,6 @@ class Estacao(models.Model):
     # Informação
     nome = models.CharField(max_length=50, db_index=True)
     codigo = models.CharField(max_length=50, db_index=True)
-    descricao = models.TextField(blank=True, null=True)
 
     # Características
     tipo = models.CharField(max_length=4, choices=TIPO_ESTACAO)
@@ -47,8 +39,6 @@ class Estacao(models.Model):
     fonte = models.ForeignKey('Fonte')
 
     # Localização
-    endereco = models.CharField(max_length=255, null=False, blank=False)
-    numero = models.SmallIntegerField(blank=True, null=True)
     geom = models.PointField(spatial_index=True)  # WGS84
 
     objects = models.GeoManager()
@@ -57,21 +47,21 @@ class Estacao(models.Model):
         return u"{0} - {1}".format(self.nome, self.fonte)
 
     def estacaoSensor(self):
+        '''
+        retorna as leituras sensores da estacao
+        '''
         return EstacaoSensor.objects.filter(
             estacao=self,
-            ativo=True,
-            sensor__leituraSensor=True
-        )
+            ativo=True)
 
     def createLeitura(self, horaLeitura, now):
-        # cria a leitura
+        '''
+        cria uma Leitura para a estação
+        '''
         return Leitura.objects.get_or_create(
             estacao=self,
             horaLeitura=horaLeitura,
-            defaults=dict(
-                horaRecebida=now,
-                horaEnviada=now
-            ))
+            defaults=dict(horaRecebida=now))
 
     class Meta:
         ordering = ['nome']
@@ -130,7 +120,7 @@ class Fonte(models.Model):
 
     def fonte_CEMADEN(self):
         '''
-        retorna um dict com os dados das estacões pegos no cemaden para Sjc
+        Cria as leituras para as estacoes do CEMADEN cadastradas
         '''
         now = timezone.now()
         utc_tz = timezone.utc
@@ -140,7 +130,7 @@ class Fonte(models.Model):
         path = self.url.format('SP')
         # faz o acesso a pagina via requests
         response = requests.get(path, timeout=240, headers={
-            'User-Agent': USER_AGENT})
+            'User-Agent': settings.USER_AGENT})
 
         if response.status_code == 200:
             data = json.loads(response.text)
@@ -160,8 +150,8 @@ class Fonte(models.Model):
                                                  .astimezone(utc_tz)
 
                         resultado[estacao][horaLeitura] = float(d['chuva'])
-                    except TypeError as e:
-                        logger.debug(str(e))
+                    except TypeError:
+                        pass
                 except Estacao.DoesNotExist:
                     pass
 
@@ -183,4 +173,4 @@ class Fonte(models.Model):
                     vrnce = estacao.sensores.get(tipo='vrnce')
                     leitura.createLeituraSensor(vrnce, valor)
                     # cria a leitura chuva
-                    leitura.atualiza_or_create_leituraChuva()
+                    leitura.create_leituraChuva()

@@ -3,70 +3,56 @@
 @author: Monica Mota
 '''
 
-from datetime import timedelta
-import logging
 from django.db import models
 from django.utils import timezone
 
-logger = logging.getLogger(__name__)
-
-TIME_DELAY = timedelta(minutes=18)
-
 
 class Leitura(models.Model):
-    """
-    Classe para fazer a persistência das leituras enviada pela estações
-    """
-
     horaLeitura = models.DateTimeField(db_index=True)
     horaRecebida = models.DateTimeField(blank=True, null=True)
     horaEnviada = models.DateTimeField(blank=True, null=True)
     estacao = models.ForeignKey('estacoes.Estacao')
 
     def __unicode__(self):
-        horaLeitura = timezone.localtime(self.horaLeitura) \
-                              .strftime('%d/%m/%Y %H:%M:%S')
+        horaLeitura = timezone.localtime(self.horaLeitura)
         return u'{0} - {1}'.format(self.estacao, horaLeitura)
 
-    def atualiza_or_create_leituraChuva(self):
+    def create_leituraChuva(self):
+        '''
+        cria a leitura chuva
+        '''
         from AlertaSJC.dados.models.leituraChuva import LeituraChuva
         from AlertaSJC.estacoes.models import Sensor
 
         try:
             try:
+                # pega a leitura chuva ligada a leitura
                 lc = self.leiturachuva
             except LeituraChuva.DoesNotExist:
+                # cria uma leitura chuva
                 lc = LeituraChuva(leitura=self)
             lc.createValoresChuva()
             lc.save()
         except Sensor.DoesNotExist as e:
-            logger.error(u"{0} - {1}".format(self, e))
+            pass
 
     def createLeituraSensor(self, sensor, valor=None):
         '''
-        :param sensor: Instancia do Sensor a ser gravado
-        :type sensor: Sensor
-        :param valor: Valor Bruto do sensor
-        :type valor: float
-        :return: Instancia do Sensor criado
-        :rtype: LeituraSensor
+        cria uma leitura sensor para a leitura
         '''
         from AlertaSJC.estacoes.models import EstacaoSensor
         from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
         try:
             try:
-                ls = LeituraSensor.objects.get(
-                    leitura=self, sensor=sensor)
-                logger.debug("%s - Atualizado" % ls)
+                # pega a leitura sensor ligada a leitura
+                ls = LeituraSensor.objects.get(leitura=self, sensor=sensor)
             except LeituraSensor.DoesNotExist:
-                ls = LeituraSensor(
-                    leitura=self, sensor=sensor)
-                logger.debug("%s - Criado" % ls)
+                # cria uma nova leitura
+                ls = LeituraSensor(leitura=self, sensor=sensor)
 
             ls.valor = valor
             ls.save()
-            return ls
         except EstacaoSensor.DoesNotExist:
             pass
 

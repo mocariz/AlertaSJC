@@ -5,49 +5,18 @@
 from django.contrib.gis.db import models
 from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
-TIPO = (
-    ('mt', 'motorway'),
-    ('tk', 'trunk'),
-    ('pm', 'primary'),
-    ('sc', 'secondary'),
-    ('tt', 'tertiary'),
-    ('rd', 'residential'),
-    ('sv', 'service'),
-    ('ft', 'footway'),
-    ('tr', 'track'),
-    ('pd', 'pedestrian'),
-    ('ph', 'path'),
-    ('mtl', 'motorway_link'),
-    ('pml', 'primary_link'),
-    ('ttl', 'tertiary_link'),
-    ('tkl', 'trunk_link'),
-    ('scl', 'secondary_link'),
-    ('ls', 'living_street'),
-    ('cy', 'cycleway'),
-    ('sp', 'steps'),
-    ('ri', 'rail'),
-    ('pi', 'pier'),
-    ('un', 'unclassified'),
-)
-
 
 class Logradouro(models.Model):
     """
-        Classe de persistência das estações
+        Classe de persistência dos logradouros
     """
 
     # Informação
     nome = models.CharField(max_length=150, db_index=True)
     codigo = models.IntegerField(db_index=True)
 
-    # Características
-    tipo = models.CharField(max_length=4, choices=TIPO)
-    maounica = models.BooleanField(db_index=True)
-    sentido = models.CharField(max_length=2, null=True)
-
     # Localização
     geom = models.LineStringField(spatial_index=True)  # WGS84
-    referencia = models.CharField(max_length=50, db_index=True)
 
     objects = models.GeoManager()
 
@@ -55,6 +24,9 @@ class Logradouro(models.Model):
         return u"{0}".format(self.nome)
 
     def get_center(self):
+        '''
+        função resposavel por retornar o ponto central
+        '''
         center = self.geom.centroid
         return center.coords
 
@@ -94,7 +66,6 @@ class Cota(models.Model):
         ).latest()
         diferenca = float(self.cota) - leitura.valor
 
-
         if diferenca > 3.0 and diferenca < 5.0:
             css = "vigilancia"
         elif diferenca >= 2.0 and diferenca < 3.0:
@@ -103,7 +74,5 @@ class Cota(models.Model):
             css = "alerta"
         elif leitura.valor > self.cota:
             css = "prontidao"
-
-        print css, diferenca
 
         return css

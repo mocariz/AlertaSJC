@@ -7,6 +7,9 @@ from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 
 class EstacaoSerializer(GeoFeatureModelSerializer):
+    '''
+    classe com as configurações dos camposque estaram contigos do json gerado
+    '''
     css = serializers.SerializerMethodField()
 
     def get_css(self, obj):

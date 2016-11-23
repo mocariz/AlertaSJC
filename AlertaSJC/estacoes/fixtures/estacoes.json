@@ -5,11 +5,8 @@
         "fields": {
             "nome": "Rio Comprido",
             "codigo": "354990401A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.941 -23.256)"
           }
     }, {
@@ -25,11 +22,8 @@
         "fields": {
             "nome": "Jardim São Leopoldo",
             "codigo": "354990410A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.825 -23.244)"
           }
     }, {
@@ -45,11 +39,7 @@
         "fields": {
             "nome": "Residencial Flamboyant",
             "codigo": "354990409A",
-            "descricao": "Estação do Cemaden",
-            "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.852 -23.216)"
           }
     }, {
@@ -65,11 +55,8 @@
         "fields": {
             "nome": "Jardim Juçara",
             "codigo": "354990404A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.869 -23.187)"
           }
     }, {
@@ -85,11 +72,8 @@
         "fields": {
             "nome": "Alto de Santana",
             "codigo": "354990402A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.966 -23.159)"
           }
     }, {
@@ -105,11 +89,8 @@
         "fields": {
             "nome": "Jardim Santa Matilde",
             "codigo": "354990403A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.903 -23.14)"
           }
     }, {
@@ -125,11 +106,8 @@
         "fields": {
             "nome": "Altos Vila Paiva",
             "codigo": "354990406A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.92 -23.143)"
           }
     }, {
@@ -145,11 +123,8 @@
         "fields": {
             "nome": "Buquirinha",
             "codigo": "354990408A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.913 -23.111)"
           }
     }, {
@@ -165,11 +140,8 @@
         "fields": {
             "nome": "Freitas",
             "codigo": "354990407A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.933 -23.109)"
           }
     }, {
@@ -185,11 +157,8 @@
         "fields": {
             "nome": "Chacara Boa Vista",
             "codigo": "354990405A",
-            "descricao": "Estação do Cemaden",
             "tipo": "plv",
             "fonte": 1,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.931 -23.087)"
           }
     }, {
@@ -205,11 +174,8 @@
         "fields": {
             "nome": "Rio Buquirinha",
             "codigo": "1",
-            "descricao": "Estação do Ficticia",
             "tipo": "nvl",
             "fonte": 2,
-            "endereco": "",
-            "numero": 0,
             "geom": "SRID=4326;POINT (-45.899 -23.117)"
           }
     }, {

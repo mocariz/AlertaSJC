@@ -4,8 +4,7 @@
 '''
 
 from django.contrib.gis import admin
-from AlertaSJC.estacoes.models import EstacaoSensor, Estacao, Sensor, \
-    Fonte
+from AlertaSJC.estacoes.models import EstacaoSensor, Estacao, Sensor, Fonte
 
 
 class EstacaoSensorInLine(admin.TabularInline):
@@ -15,7 +14,7 @@ class EstacaoSensorInLine(admin.TabularInline):
 
 class EstacaoAdmin(admin.OSMGeoAdmin):
     list_display = ('nome', 'codigo', 'fonte')
-    list_filter = ('tipo', 'fonte')
+    list_filter = ('fonte',)
     inlines = (EstacaoSensorInLine,)
     save_as = True
 
