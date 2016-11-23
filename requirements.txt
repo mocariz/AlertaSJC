@@ -1,21 +1,17 @@
 Django==1.10
 psycopg2==2.6.2
-beautifulsoup4
-requests
-pytz
-django-bootstrap
+requests==2.11.1
+pyshp==1.2.10 # shapefile
+django-bootstrap3==7.1.0
 
 # django-rest
-djangorestframework
-markdown
-django-filter
-djangorestframework-gis
-
+djangorestframework==3.5.3
+djangorestframework-gis==0.10.1
+markdown==2.6.7
+django-filter==0.15.3
 
 
 
 # Test project
 pep8
 pylint
-mock
-coverage
