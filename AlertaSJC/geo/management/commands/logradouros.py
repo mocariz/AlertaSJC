@@ -5,7 +5,7 @@ import shapefile
 from django.conf import settings
 from django.contrib.gis.geos import LineString
 from django.core.management.base import BaseCommand
-from AlertaSJC.geo.models import Logradouro, TIPO
+from AlertaSJC.geo.models import Logradouro
 
 
 class Command(BaseCommand):
@@ -29,17 +29,6 @@ class Command(BaseCommand):
         for linha in arquivo.iterShapeRecords():
             shape = linha.shape
             dados = linha.record
-            lTipo = 'un'
-
-            # define o tipo do logradouro com base nos tipos da lista
-            for tipo in TIPO:
-                if tipo[1] == dados[2]:
-                    lTipo = tipo[0]
-
-            if dados[6] == 1:
-                sentido = True
-            else:
-                sentido = False
 
             # converter os points em lista
             points = map(lambda y: list(y), shape.points)
@@ -47,10 +36,7 @@ class Command(BaseCommand):
                 geom=LineString(points),
                 id=dados[0],
                 codigo=dados[1],
-                nome=dados[3],
-                tipo=lTipo,
-                maounica=sentido,
-                referencia=dados[7])
+                nome=dados[3])
 
             if created:
                 logradouro.save()
