@@ -10,7 +10,6 @@ from django.utils import timezone
 class Leitura(models.Model):
     horaLeitura = models.DateTimeField(db_index=True)
     horaRecebida = models.DateTimeField(blank=True, null=True)
-    horaEnviada = models.DateTimeField(blank=True, null=True)
     estacao = models.ForeignKey('estacoes.Estacao')
 
     def __unicode__(self):
@@ -33,28 +32,24 @@ class Leitura(models.Model):
                 lc = LeituraChuva(leitura=self)
             lc.createValoresChuva()
             lc.save()
-        except Sensor.DoesNotExist as e:
+        except Sensor.DoesNotExist:
             pass
 
     def createLeituraSensor(self, sensor, valor=None):
         '''
         cria uma leitura sensor para a leitura
         '''
-        from AlertaSJC.estacoes.models import EstacaoSensor
         from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
         try:
-            try:
-                # pega a leitura sensor ligada a leitura
-                ls = LeituraSensor.objects.get(leitura=self, sensor=sensor)
-            except LeituraSensor.DoesNotExist:
-                # cria uma nova leitura
-                ls = LeituraSensor(leitura=self, sensor=sensor)
+            # pega a leitura sensor ligada a leitura
+            ls = LeituraSensor.objects.get(leitura=self, sensor=sensor)
+        except LeituraSensor.DoesNotExist:
+            # cria uma nova leitura
+            ls = LeituraSensor(leitura=self, sensor=sensor)
 
-            ls.valor = valor
-            ls.save()
-        except EstacaoSensor.DoesNotExist:
-            pass
+        ls.valor = valor
+        ls.save()
 
     @property
     def css_nivel(self):

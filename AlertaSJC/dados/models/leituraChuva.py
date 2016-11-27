@@ -8,6 +8,7 @@ from datetime import timedelta
 from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
+from AlertaSJC.estacoes.models import Sensor
 from AlertaSJC.dados.models.leitura import Leitura
 from AlertaSJC.dados.models.leituraSensor import LeituraSensor
 
@@ -55,7 +56,7 @@ class LeituraChuva(models.Model):
         last = query.last()
         minutos = timedelta(minutes=tempo)
         if abs(last.horaLeitura - first.horaLeitura) == minutos:
-            sensor = self.leitura.estacao.sensores.get(tipo="vrnce")
+            sensor = Sensor.objects.get(tipo="vrnce")
 
             return LeituraSensor.objects.filter(
                 leitura__estacao=self.leitura.estacao,
@@ -71,7 +72,7 @@ class LeituraChuva(models.Model):
         month = horaLeitura.month
         year = horaLeitura.year
         # obtem o sensor de variance da estacao
-        variance = self.leitura.estacao.sensores.get(tipo="vrnce")
+        variance = Sensor.objects.get(tipo="vrnce")
         queryMes = LeituraSensor.objects.filter(
             leitura__estacao=self.leitura.estacao,
             sensor=variance,
@@ -99,7 +100,7 @@ class LeituraChuva(models.Model):
         recebe o valor do campo da leitura chuva e retorna a quatindade de
         minutos correspondente ao mesmo
 
-        ex: m30 = 30, h01 = 60, h02 = 120
+        ex: h01 = 60, h02 = 120
         '''
         if attr.startswith('m'):
             return int(attr[1:])

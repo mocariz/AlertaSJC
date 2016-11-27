@@ -35,7 +35,6 @@ class Estacao(models.Model):
 
     # Características
     tipo = models.CharField(max_length=4, choices=TIPO_ESTACAO)
-    sensores = models.ManyToManyField('Sensor', through='EstacaoSensor')
     fonte = models.ForeignKey('Fonte')
 
     # Localização
@@ -45,14 +44,6 @@ class Estacao(models.Model):
 
     def __unicode__(self):
         return u"{0} - {1}".format(self.nome, self.fonte)
-
-    def estacaoSensor(self):
-        '''
-        retorna as leituras sensores da estacao
-        '''
-        return EstacaoSensor.objects.filter(
-            estacao=self,
-            ativo=True)
 
     def createLeitura(self, horaLeitura, now):
         '''
@@ -86,21 +77,6 @@ class Sensor(models.Model):
         verbose_name = u"Sensor"
         verbose_name_plural = u"Sensores"
         ordering = ['nome']
-
-
-class EstacaoSensor(models.Model):
-    """
-    Ponte Many-to-Many entre a estações e os sensores
-    """
-
-    estacao = models.ForeignKey(Estacao)
-    sensor = models.ForeignKey(Sensor)
-
-    class Meta:
-        unique_together = ("estacao", "sensor")
-
-    def __unicode__(self):
-        return u"{0} - {1}".format(self.estacao, self.sensor)
 
 
 class Fonte(models.Model):
@@ -170,7 +146,7 @@ class Fonte(models.Model):
                         continue
 
                     # cria leitura sensor
-                    vrnce = estacao.sensores.get(tipo='vrnce')
+                    vrnce = Sensor.objects.get(tipo='vrnce')
                     leitura.createLeituraSensor(vrnce, valor)
                     # cria a leitura chuva
                     leitura.create_leituraChuva()
