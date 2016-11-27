@@ -32,15 +32,12 @@
     <thead>
         <tr>
           <th class="text-center">Hora Leitura</th>
-          <th class="text-center">15 min</th>
-          <th class="text-center">30 min</th>
           <th class="text-center">1 h</th>
           <th class="text-center">2 h</th>
           <th class="text-center">3 h</th>
           <th class="text-center">6 h</th>
           <th class="text-center">12 h</th>
           <th class="text-center">24 h</th>
-          <th class="text-center">48 h</th>
           <th class="text-center">96 h</th>
           <th class="text-center">No Mês</th>
         </tr>
@@ -49,15 +46,12 @@
         {% for leitura in lista %}
             <tr class="{{ leitura.css_chuva }} text-center">
                 <td>{{ leitura.leitura.horaLeitura|date:'d/m/Y H:i' }}</td>
-                <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.m15|safe }}">{{ leitura.m15|floatformat:1|default:'-'}}</td>
-                <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.m30|safe }}">{{ leitura.m30|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h01|safe }}">{{ leitura.h01|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h02|safe }}">{{ leitura.h02|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h03|safe }}">{{ leitura.h03|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h06|safe }}">{{ leitura.h06|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h12|safe }}">{{ leitura.h12|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h24|safe }}">{{ leitura.h24|floatformat:1|default:'-'}}</td>
-                <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h48|safe }}">{{ leitura.h48|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.h96|safe }}">{{ leitura.h96|floatformat:1|default:'-'}}</td>
                 <td class="{{ leitura.css_chuva }} text-center" data-value="{{ leitura.mes|safe }}">{{ leitura.mes|floatformat:1|default:'-'}}</td>
             </tr>

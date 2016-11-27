@@ -34,15 +34,12 @@
             <th class="text-center">Código</th>
             <th class="text-center">Estação</th>
             <th class="text-center">Hora Leitura</th>
-            <th class="text-center">15 min</th>
-            <th class="text-center">30 min</th>
             <th class="text-center">1 h</th>
             <th class="text-center">2 h</th>
             <th class="text-center">3 h</th>
             <th class="text-center">6 h</th>
             <th class="text-center">12 h</th>
             <th class="text-center">24 h</th>
-            <th class="text-center">48 h</th>
             <th class="text-center">96 h</th>
             <th class="text-center">No Mês</th>
         </tr>
@@ -54,15 +51,12 @@
                 <td id="estacao-{{estacao.pk}}" class="{{ css_chuva }} text-center">{{ estacao.codigo}}</td>
                 <td id="nome-{{ estacao.pk }}" class="{{ css_chuva }}">{{estacao.nome}}</td>
                 <td data-date="{{ lc.leitura.horaLeitura|date:'c'|default:'-' }}"  id="horaLeitura-{{ estacao.pk }}" class="{{ css_chuva }} text-center"><a id="data-{{estacao.pk}}" href="{% url 'dados:historico' estacao.pk %}" title="Dados das últimas 24 horas">{{ lc.leitura.horaLeitura|date:'d/m/Y - H:i' }}</a></td>
-                <td id="m15-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.m15|safe }}">{{ lc.m15|floatformat:1|default:'-'}}</td>
-                <td id="m30-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.m30|safe }}">{{ lc.m30|floatformat:1|default:'-'}}</td>
                 <td id="h01-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h01|safe }}">{{ lc.h01|floatformat:1|default:'-'}}</td>
                 <td id="h02-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h02|safe }}">{{ lc.h02|floatformat:1|default:'-'}}</td>
                 <td id="h03-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h03|safe }}">{{ lc.h03|floatformat:1|default:'-'}}</td>
                 <td id="h06-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h06|safe }}">{{ lc.h06|floatformat:1|default:'-'}}</td>
                 <td id="h12-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h12|safe }}">{{ lc.h12|floatformat:1|default:'-'}}</td>
                 <td id="h24-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h24|safe }}">{{ lc.h24|floatformat:1|default:'-'}}</td>
-                <td id="h48-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h48|safe }}">{{ lc.h48|floatformat:1|default:'-'}}</td>
                 <td id="h96-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.h96|safe }}">{{ lc.h96|floatformat:1|default:'-'}}</td>
                 <td id="mes-{{estacao.pk}}" class="{{ css_chuva }} text-center" data-value="{{ lc.mes|safe }}">{{ lc.mes|floatformat:1|default:'-'}}</td>
             </tr>
