@@ -1,0 +1,23 @@
+{
+  "name": "AlertaSJC",
+  "version": "1.0.0",
+  "description": "Protótipo de um Sistema Web de monitoramento de eventos chuvosos com a finalidade de identificar possíveis pontos de alagamento na cidade de São José dos Campos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monicamota/Trajeto-Seco-SJC.git"
+  },
+  "author": "Monica Mota Ocariz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monicamota/Trajeto-Seco-SJC/issues"
+  },
+  "homepage": "https://github.com/monicamota/Trajeto-Seco-SJC#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.4.0"
+  }
+}
